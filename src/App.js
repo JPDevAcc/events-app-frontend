@@ -1,23 +1,28 @@
-import logo from './logo.svg';
 import './App.css';
+import { useState } from 'react';
+import ApiClient from './apiClient';
+import Dashboard from './Dashboard';
+import Login from './Login';
 
 function App() {
+	const [token, setToken] = useState(window.localStorage.getItem("token")) ;
+	const client = new ApiClient(() => token, logout) ;
+
+	function login(token) {
+		window.localStorage.setItem("token", token) ;
+		setToken(token) ;
+	}
+
+	function logout() {
+		window.localStorage.removeItem("token") ;
+		setToken(undefined) ;
+	}
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+			{(token) ?
+				<Dashboard client={client} /> :
+				<Login login={login} client={client} />}
     </div>
   );
 }
