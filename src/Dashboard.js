@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import Add from "./Add";
+import AddUpdateDel from "./AddUpdateDel";
 
 export default function Dashboard(props) {
 	const [ads, changeAds] = useState([]) ;
@@ -55,7 +55,7 @@ export default function Dashboard(props) {
 				</tbody>
 			</table>
 			<br /><br /><br /><br />
-			<Add client={props.client} currentAd={current} refreshList={() => {
+			<AddUpdateDel client={props.client} currentAd={current} refreshList={() => {
 				refreshList() ;
 				changeCurrent(undefined) ;
 			}} />

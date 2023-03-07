@@ -3,6 +3,7 @@ import { useState } from 'react';
 import ApiClient from './apiClient';
 import Dashboard from './Dashboard';
 import Login from './Login';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
 	const [token, setToken] = useState(window.localStorage.getItem("token")) ;
@@ -20,7 +21,7 @@ function App() {
 
   return (
     <div className="App">
-			{(token) ?
+			{(token || true) ?
 				<Dashboard client={client} /> :
 				<Login login={login} client={client} />}
     </div>
