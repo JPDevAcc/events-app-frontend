@@ -1,64 +1,46 @@
+import "./css/Dashboard.css"
 import { useEffect, useState } from "react";
+import EventCards from "./components/EventCards";
 import Add from "./Add";
 
+
 export default function Dashboard(props) {
-	const [ads, changeAds] = useState([]) ;
-	const [current, changeCurrent] = useState(undefined) ;
-	
+	const [events, changeEvents] = useState([]);
+	const [current, changeCurrent] = useState(undefined);
+
 	const refreshList = () => {
-		props.client.getAds().then(response => {
-			changeAds(response.data) ;
-		}) ;
+		props.client.getEvents().then(response => {
+			changeEvents(response.data);
+		});
 	}
 
-	const removeAdvert = (id) => {
-		props.client.removeAd(id).then(() => refreshList()) ;
+	const handleRemoveEvent = (id) => {
+		props.client.removeEvent(id).then(() => refreshList());
 	}
 
-	const updateAdvert = (ad) => {
-		changeCurrent(ad) ;
+	const handleUpdateEvent = (event) => {
+		changeCurrent(event);
 	}
 
 	useEffect(() => {
-		refreshList() ;
-	}, []) ;
-
-
-	const buildRows = () => {
-		return ads?.map(ad => {
-			return (
-				<tr key={ad._id}>
-					<td>{ad.name}</td>
-					<td>{ad.price}</td>
-					<td>
-						<button onClick={() => updateAdvert(ad)}>Edit</button>
-						<button onClick={() => removeAdvert(ad._id)}>Delete</button>
-					</td>
-				</tr>
-			)
-		})
-	};
+		refreshList();
+	}, []);
 
 
 	return (
-		<div>
-			Dashboard
-			<table>
-				<thead>
-					<tr>
-						<th>Advert name</th>
-						<th>Advert price</th>
-					</tr>
-				</thead>
-				<tbody>
-					{buildRows()}
-				</tbody>
-			</table>
-			<br /><br /><br /><br />
-			<Add client={props.client} currentAd={current} refreshList={() => {
-				refreshList() ;
-				changeCurrent(undefined) ;
-			}} />
-		</div>
+		<>
+			<h1>Dashboard</h1>
+			<div className="dashboard-container">
+
+				<EventCards
+					events={events}
+				/>
+			</div>
+			{/* <Add client={props.client} currentAd={current} refreshList={() => {
+				refreshList();
+				changeCurrent(undefined);
+			}} /> */}
+		</>
+
 	)
 }
