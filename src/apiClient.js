@@ -1,5 +1,5 @@
 import axios from "axios";
-const url = "http://localhost:3005/";
+const url = "http://localhost:3005";
 
 export default class ApiClient {
 	constructor(tokenProvider, logoutHandler) {
@@ -21,20 +21,22 @@ export default class ApiClient {
 		});
 	}
 
+	// TODO: CHECK THESE ROUTES WORK ON RENDER
+
 	getEvents() {
 		return this.authenticatedCall("get", url);
 	}
 
-	addEvent(name, price) {
-		return this.authenticatedCall("post", url, { name, price });
+	addEvent(data) {
+		return this.authenticatedCall("post",  url, data);
 	}
 
 	removeEvent(id) {
-		return this.authenticatedCall("delete", `${url}${id}`);
+		return this.authenticatedCall("delete", `${url}/${id}`);
 	}
 
-	updateEvent(id, name, price) {
-		return this.authenticatedCall("put", `${url}${id}`, { name, price });
+	updateEvent(id, data) {
+		return this.authenticatedCall("put", `${url}/${id}`, data);
 	}
 
 	login(username, password) {
