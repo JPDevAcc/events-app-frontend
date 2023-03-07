@@ -1,0 +1,21 @@
+.addUpdateDelCard {
+	background: rgb(244,244,244);
+	background: linear-gradient(170deg, rgba(250,250,250,1) 0%, rgba(231,231,231,1) 75%, rgba(215,215,215,1) 100%);
+	max-width: 1024px ;
+	border-width: 2px !important;
+	box-shadow: 7px 7px 16px -2px rgba(0,0,0,0.75);
+	margin: auto;
+}
+
+.addUpdateDelCard .card-img-top {
+	background: #ccc ;
+	margin: auto ;
+	width: 96px ;
+	height: 96px ;
+	border: 2px inset #888 ;
+	border-radius: 0 ;
+}
+
+.addUpdateDelCard button:first-of-type {
+	margin-right: 2em;
+}

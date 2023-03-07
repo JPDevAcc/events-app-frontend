@@ -1,8 +1,7 @@
 import "./css/Dashboard.css"
 import { useEffect, useState } from "react";
 import EventCards from "./components/EventCards";
-import Add from "./Add";
-
+import AddUpdateDel from "./AddUpdateDel";
 
 export default function Dashboard(props) {
 	const [events, changeEvents] = useState([]);
@@ -36,11 +35,10 @@ export default function Dashboard(props) {
 					events={events}
 				/>
 			</div>
-			{/* <Add client={props.client} currentAd={current} refreshList={() => {
-				refreshList();
-				changeCurrent(undefined);
-			}} /> */}
+			<AddUpdateDel client={props.client} currentAd={current} refreshList={() => {
+				refreshList() ;
+				changeCurrent(undefined) ;
+			}} />
 		</>
-
 	)
 }
