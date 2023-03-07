@@ -1,4 +1,5 @@
 import './App.css';
+import { Route, Routes, Link } from "react-router-dom";
 import { useState } from 'react';
 import ApiClient from './apiClient';
 import Dashboard from './Dashboard';
@@ -21,9 +22,23 @@ function App() {
 
 	return (
 		<div className="App">
-			{(token) ?
-				<Dashboard client={client} /> :
-				<Login login={login} client={client} />}
+			<Link className="nav-link" to="/">View</Link>
+			<Link className="nav-link" to="/test">Test</Link>
+
+			<Routes>
+				<Route path="/test" element={
+					<div>Test Route</div>
+				} />
+
+				<Route path="/" element={
+					<>
+					{(token) ?
+						<Dashboard client={client} /> :
+						<Login login={login} client={client} />}
+					</>
+				} />
+				
+			</Routes>
 		</div>
 	);
 }
