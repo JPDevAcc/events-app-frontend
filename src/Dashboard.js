@@ -33,11 +33,12 @@ export default function Dashboard(props) {
 
 				<EventCards
 					events={events}
+					setCurrentViewEvent={props.setCurrentViewEvent}
 				/>
 			</div>
 			<AddUpdateDel client={props.client} currentAd={current} refreshList={() => {
-				refreshList() ;
-				changeCurrent(undefined) ;
+				refreshList();
+				changeCurrent(undefined);
 			}} />
 		</>
 	)
