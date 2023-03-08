@@ -5,7 +5,10 @@ import ApiClient from './apiClient';
 import Dashboard from './Dashboard';
 import Login from './Login';
 import 'bootstrap/dist/css/bootstrap.min.css';
+<<<<<<< Updated upstream
 import EventPage from './EventPage';
+=======
+>>>>>>> Stashed changes
 
 function App() {
 	const [token, setToken] = useState(window.localStorage.getItem("token"));
