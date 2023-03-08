@@ -4,7 +4,8 @@ import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import Card from "react-bootstrap/Card";
-import './AddUpdateDel.css' ;
+import './AddUpdateDel.css';
+import EventPage from "./EventPage";
 
 export default function Add({client, refreshList, currentEvent}) {
 
@@ -20,8 +21,8 @@ export default function Add({client, refreshList, currentEvent}) {
 	}, [currentEvent]) ;
 
 	const submitHandler = (e) => {
-		e.preventDefault() ;
-		changeDisabled(true) ; // Avoid overlapping requests
+		e.preventDefault();
+		changeDisabled(true); // Avoid overlapping requests
 
 		let action = 'add' ;
 		if (e.target.name === 'delete') action = 'delete' ;
@@ -108,6 +109,7 @@ export default function Add({client, refreshList, currentEvent}) {
 						<Form.Group as={Col} controlId="eventLocation">
 							<Form.Label>Location</Form.Label>
 							<Form.Control defaultValue={currentEvent?.location} placeholder="Location of your event" disabled={disabled} />
+							<Form.Control placeholder="Location of your event" disabled={disabled} />
 						</Form.Group>
 
 						<Form.Group as={Col} controlId="eventImageURL">
