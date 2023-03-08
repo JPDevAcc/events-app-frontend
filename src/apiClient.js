@@ -40,6 +40,6 @@ export default class ApiClient {
 	}
 
 	login(username, password) {
-		return axios.post(`${url}auth`, { username, password });
+		return axios.post(`${url}/auth`, { username, password });
 	}
 }
