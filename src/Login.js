@@ -1,5 +1,7 @@
 import { useState } from "react";
-
+import React from 'react';
+import Logo from './logo.js'
+import styles from './style.css';
 export default function Login(props) {
 const [disabled, changeDisabled] = useState(false) ;
 
@@ -18,22 +20,21 @@ const [disabled, changeDisabled] = useState(false) ;
 			changeDisabled(false);
 		});
 	};
-
 	return (
     <>
-      Login
+    <Logo />
       <br />
       <form onSubmit={(e) => submitHandler(e)}>
-        username
+        Username
         <br />
-        <input type="text" name="username" disabled={disabled} />
+        <input type="text" name="username" className="input-box" disabled={disabled} />
         <br />
-        password
+        Password
         <br />
-        <input type="password" name="password" disabled={disabled} />
+        <input type="password" name="password" className="input-box" disabled={disabled} />
         <br />
         <br />
-        <button type="submit" disabled={disabled}>
+        <button type="submit" className="submit-btn" disabled={disabled}>
           {" "}
           Submit{" "}
         </button>
@@ -41,3 +42,7 @@ const [disabled, changeDisabled] = useState(false) ;
     </>
   );
 }
+
+
+
+

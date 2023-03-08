@@ -1,0 +1,30 @@
+* {
+    background-color: #a3acb8ff;
+    font-family: 'Roboto', sans-serif;
+    font-size: 1rem;
+    font-style: oblique;
+    font-weight: bold;
+    color: #03256cff;
+    margin-top: 3px;
+    padding: 0;
+    box-sizing: border-box;
+
+}
+
+.input-box {
+    background-color:#a3acb8ff;
+    width: 20%;
+    height: 40px;
+    border: 2.5px solid #03256cff;
+    border-radius: 15px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(20, 8, 90, 0.3) 0px 18px 36px -18px inset;
+}
+
+.submit-btn {
+    background-color:#f59f00ff;
+    width: 7%;
+    height: 40px;
+    border: 2.5px solid #03256cff;
+    border-radius: 15px;
+    box-shadow: rgba(16, 16, 187, 0.25) 0px 30px 60px -12px inset, rgba(235, 231, 3, 0.884) 0px 18px 36px -18px inset;
+}
