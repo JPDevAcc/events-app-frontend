@@ -4,8 +4,7 @@ import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import Card from "react-bootstrap/Card";
-import './AddUpdateDel.css';
-import EventPage from "./EventPage";
+import '../css/AddUpdateDel.css';
 
 export default function Add({client, refreshList, currentEvent}) {
 
@@ -15,10 +14,15 @@ export default function Add({client, refreshList, currentEvent}) {
 
 	useEffect(() => {
 		changeImageUrl(currentEvent?.picture || '')
-		const currentEventDate = currentEvent?.date.split('T')[0] || '' ;
-		const currentEventTime = currentEvent?.date.split('T')[1].split('.')[0] || '' ;
+		const {dateInputValue: currentEventDate, timeInputValue: currentEventTime} = dateTodateAndTimeInputValues(currentEvent?.date) ;
 		changeHtmlDateTime({currentEventDate, currentEventTime}) ;
 	}, [currentEvent]) ;
+
+	function dateTodateAndTimeInputValues(date) {
+		const dateInputValue = date?.split('T')[0] || '' ;
+		const timeInputValue = date?.split('T')[1].split('.')[0] || '' ;
+		return {dateInputValue, timeInputValue}
+	}
 
 	const submitHandler = (e) => {
 		e.preventDefault();
@@ -28,7 +32,7 @@ export default function Add({client, refreshList, currentEvent}) {
 		if (e.target.name === 'delete') action = 'delete' ;
 		else if (currentEvent) action = 'update' ;
 	
-		const dateObj = dateAndTimeInputsToDate(
+		const dateObj = dateAndTimeInputValuesToDate(
 			document.getElementById('eventDate').value,
 			document.getElementById('eventTime').value
 		)
@@ -51,7 +55,7 @@ export default function Add({client, refreshList, currentEvent}) {
 		// Do request
 		request.then(() => {
 			changeDisabled(false) ;
-			document.getElementById("addUpdateDelForm").reset() ;
+			if (action === 'add') document.getElementById("addUpdateDelForm").reset() ;
 			refreshList() ;
 		}).catch(err => {
 			console.error(err) ;
@@ -62,7 +66,7 @@ export default function Add({client, refreshList, currentEvent}) {
 
 	// https://stackoverflow.com/questions/23640351/how-to-convert-html5-input-type-date-and-time-to-javascript-datetime/23640507#23640507
 	// (this may not work in all browsers!)
-	function dateAndTimeInputsToDate(dateInput, timeInput) {
+	function dateAndTimeInputValuesToDate(dateInput, timeInput) {
 		return new Date(dateInput + " " + timeInput)
 	}
 
@@ -91,9 +95,9 @@ export default function Add({client, refreshList, currentEvent}) {
 							<Form.Control type="time" defaultValue={htmlDateTime.currentEventTime} placeholder="Time as HH:MM:SS (24-hour format)" disabled={disabled} />
 						</Form.Group>
 
-						<Form.Group as={Col}>
-							<label class="form-label" htmlFor="eventDuration">Duration</label>
-							<div className="d-flex">
+						<Form.Group md as={Col}>
+							<label className="form-label" htmlFor="eventDuration">Duration</label>
+							<div className="d-flex gap-1">
 								<Form.Control id="eventDuration" defaultValue={currentEvent?.duration} placeholder="Length" disabled={disabled} />
 								<Form.Select id="eventDurationUnits" defaultValue={currentEvent?.durationUnits} aria-label="Length units" disabled={disabled} >
 									<option value="m">Minutes</option>
@@ -109,10 +113,9 @@ export default function Add({client, refreshList, currentEvent}) {
 						<Form.Group as={Col} controlId="eventLocation">
 							<Form.Label>Location</Form.Label>
 							<Form.Control defaultValue={currentEvent?.location} placeholder="Location of your event" disabled={disabled} />
-							<Form.Control placeholder="Location of your event" disabled={disabled} />
 						</Form.Group>
 
-						<Form.Group as={Col} controlId="eventImageURL">
+						<Form.Group md as={Col} controlId="eventImageURL">
 							<Form.Label>Image</Form.Label>
 							<Form.Control placeholder="Image URL" disabled={disabled}
 							value={imageUrl} onChange={(e) => changeImageUrl(e.target.value)} />
