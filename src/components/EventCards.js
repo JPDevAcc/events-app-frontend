@@ -9,7 +9,11 @@ function EventCards(props) {
         return props.events?.map(event => {
             // console.log(props.events)
             return (
-                <SingleEventCard key={event._id} event={event} />
+                <SingleEventCard
+                    key={event._id}
+                    event={event}
+                    setCurrentViewEvent={props.setCurrentViewEvent}
+                />
             )
         })
     };
