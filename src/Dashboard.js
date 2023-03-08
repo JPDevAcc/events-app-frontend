@@ -5,7 +5,7 @@ import AddUpdateDel from "./AddUpdateDel";
 
 export default function Dashboard(props) {
 	const [events, changeEvents] = useState([]);
-	const [current, changeCurrent] = useState(undefined);
+	const [currentForUpdate, changeCurrentForUpdate] = useState(undefined);
 
 	const refreshList = () => {
 		props.client.getEvents().then(response => {
@@ -13,12 +13,8 @@ export default function Dashboard(props) {
 		});
 	}
 
-	const handleRemoveEvent = (id) => {
-		props.client.removeEvent(id).then(() => refreshList());
-	}
-
 	const handleUpdateEvent = (event) => {
-		changeCurrent(event);
+		changeCurrentForUpdate(event);
 	}
 
 	useEffect(() => {
@@ -35,9 +31,9 @@ export default function Dashboard(props) {
 					events={events}
 				/>
 			</div>
-			<AddUpdateDel client={props.client} currentAd={current} refreshList={() => {
+			<AddUpdateDel client={props.client} currentEvent={events[2]} refreshList={() => {
 				refreshList() ;
-				changeCurrent(undefined) ;
+				changeCurrentForUpdate(undefined) ;
 			}} />
 		</>
 	)

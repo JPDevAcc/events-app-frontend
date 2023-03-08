@@ -7,6 +7,11 @@
 	margin: auto;
 }
 
+.addUpdateDelCard .card-title {
+	font-size: 175%;
+	margin: 0.5em 0;
+}
+
 .addUpdateDelCard .card-img-top {
 	background: #ccc ;
 	margin: auto ;

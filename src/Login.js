@@ -12,7 +12,8 @@ const [disabled, changeDisabled] = useState(false) ;
 			changeDisabled(false);
 			props.login(response.data.token);
 		})
-		.catch(() => {
+		.catch((err) => {
+			console.error(err) ;
 			alert("an error occursed, please try again");
 			changeDisabled(false);
 		});
