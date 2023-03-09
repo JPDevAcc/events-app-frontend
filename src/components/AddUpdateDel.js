@@ -72,7 +72,6 @@ export default function Add({client, refreshList, currentEvent}) {
 
 	return (
 		<>
-		{currentEvent && 
 		 <Card className='addUpdateDelCard'>
 		  <Card.Title>Event Details</Card.Title>
       <Card.Img variant="top" src={imageUrl} />
@@ -140,7 +139,7 @@ export default function Add({client, refreshList, currentEvent}) {
 					</div>
 				</Form>
  			</Card.Body>
-    </Card>}
+    </Card>
 		</>
 	)
 }
