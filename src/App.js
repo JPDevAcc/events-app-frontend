@@ -13,6 +13,7 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import styles from './style.css';
 
+
 function App() {
 	const [token, setToken] = useState(window.localStorage.getItem("token")); // Restore token from localstorage
 	const [currentEvent, changeCurrentEvent] = useState(null) // Currently selected event for viewing/updating/deleting
