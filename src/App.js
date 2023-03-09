@@ -38,9 +38,9 @@ function App() {
 
 	return (
 		<div className="App">
-			<Link className="nav-link" to="/">View</Link>
+			{/* <Link className="nav-link" to="/">View</Link>
 			<Link className="nav-link" to="/test">Test</Link>
-			<Link className="nav-link" to="/event">Event Page</Link>
+			<Link className="nav-link" to="/event">Event Page</Link> */}
 
 			<Routes>
 				<Route path="/test" element={

@@ -24,7 +24,7 @@ export default function Dashboard(props) {
 
 	return (
 		<>
-			<h1>Dashboard</h1>
+			<h1 className="header-dash">Dashboard</h1>
 			<div className="dashboard-container">
 
 				<EventCards
@@ -33,8 +33,8 @@ export default function Dashboard(props) {
 				/>
 			</div>
 			<AddUpdateDel client={props.client} currentEvent={events[2]} refreshList={() => {
-				refreshList() ;
-				changeCurrentForUpdate(undefined) ;
+				refreshList();
+				changeCurrentForUpdate(undefined);
 			}} />
 		</>
 	)

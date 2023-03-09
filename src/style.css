@@ -1,4 +1,9 @@
 * {
+    margin: 0;
+}
+
+.login-container {
+    height: 100%;
     background-color: #a3acb8ff;
     font-family: 'Roboto', sans-serif;
     font-size: 1rem;
@@ -6,13 +11,12 @@
     font-weight: bold;
     color: #03256cff;
     margin-top: 3px;
-    padding: 0;
+    padding: 20px;
     box-sizing: border-box;
-
 }
 
 .input-box {
-    background-color:#a3acb8ff;
+    background-color: #a3acb8ff;
     width: 20%;
     height: 40px;
     border: 2.5px solid #03256cff;
@@ -21,7 +25,7 @@
 }
 
 .submit-btn {
-    background-color:#f59f00ff;
+    background-color: #f59f00ff;
     width: 7%;
     height: 40px;
     border: 2.5px solid #03256cff;

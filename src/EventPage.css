@@ -1,11 +1,16 @@
 .event-page-container {
+    padding: 30px;
     display: flex;
     align-items: center;
     justify-content: center;
     width: 100%;
-    min-height: 80vh;
+    min-height: 100vh;
     background-color: #f5f5f5;
+    background-size: contain;
+    background-image: url(https://images.unsplash.com/photo-1603910234616-3b5f4a6be2b4?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mjl8fGNvbmNlcnR8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60);
+    background-attachment: fixed;
 }
+
 
 .card-text-wrapper {
     display: flex;
@@ -20,9 +25,15 @@
     flex-direction: row !important;
     flex-wrap: wrap;
     min-height: 300px;
+    border: none !important;
+
+
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
+
 }
 
 .left-header {
+    border: none !important;
     padding: 0 !important;
     padding-top: 20px !important;
     display: flex;
@@ -33,13 +44,14 @@
     height: auto;
     background-color: #e0dcdc !important;
     border-radius: 5px 0 0 5px !important;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
+
 }
 
 .event-page-image {
     width: 200px;
     height: 200px;
     object-fit: cover;
-    object-position: center;
     border-radius: 0 0 0 5px;
 }
 
@@ -54,6 +66,11 @@
 .btn {
     background-color: rgb(93, 82, 247) !important;
     border: none !important;
+}
+
+.link {
+    font-size: 1.5rem;
+    color: yellow;
 }
 
 .event-title {
@@ -72,4 +89,16 @@
 
 .event-description {
     padding: 30px;
+}
+
+@media screen and (min-width: 260px) and (max-width: 767px) {
+    .left-header {
+        width: 100%;
+        height: auto;
+        border-radius: 5px 5px 0 0 !important;
+    }
+
+    .event-page-image {
+        width: 100%;
+    }
 }
