@@ -5,6 +5,7 @@ export default class ApiClient {
 	constructor(tokenProvider, logoutHandler) {
 		this.tokenProvider = tokenProvider;
 		this.logoutHandler = logoutHandler;
+		this.setFilters() ;
 	}
 
 	authenticatedCall(method, url, data) {
@@ -21,10 +22,26 @@ export default class ApiClient {
 		});
 	}
 
+	setFilters(filters = {}) {
+		this.filters = filters ;
+	}
+
+	getFilters() {
+		return {...this.filters} ;
+	}
+
 	// TODO: CHECK THESE ROUTES WORK ON RENDER
 
 	getEvents() {
-		return this.authenticatedCall("get", url);
+		/* Search criteria format: f1=fieldName1&s1=searchValue1&f2=fieldName2&s2=searchValue2... */
+		let argsStr = '' ;
+		for (const [i, [fieldName, searchValue]] of Object.entries(this.filters).entries()) {
+			argsStr += ('&f' + i + '=') + encodeURI(fieldName) + ('&s' + i + '=') + encodeURI(searchValue.trim()) ;
+		}
+		argsStr = argsStr.substring(1) ;
+
+		if (argsStr) return this.authenticatedCall("get", `${url}/search/and?` + argsStr) ;
+		else return this.authenticatedCall("get", url);
 	}
 
 	addEvent(data) {
