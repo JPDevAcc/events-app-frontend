@@ -4,9 +4,17 @@
     align-items: center;
     justify-content: center;
     width: 100%;
-    min-height: 80vh;
+    min-height: 100vh;
     background-color: #f5f5f5;
-    padding: 20px;
+    padding: 0;
+
+}
+
+
+h1 {
+    width: 100%;
+    background-color: #c4c3d0;
+    margin: 0 !important;
 }
 
 .card-image {
@@ -17,8 +25,11 @@
 
 .event-card {
     width: auto !important;
+    margin: 3px;
+    border: none !important;
     flex-direction: row !important;
     border-radius: 10px !important;
+    box-shadow: rgba(0, 0, 0, 0.56) 0px 22px 70px 4px;
 }
 
 .card-img-top {
@@ -34,19 +45,55 @@
     background-color: rgba(95, 94, 94, 0.664);
     color: white !important;
     border-right: 1px solid #000;
-    width: max(80px, 5vw);
+    width: max(75px, 5vw);
     border-radius: 10px 0 0 10px !important;
 }
 
 .card-body-middle {
     width: min(30vw, 500px);
     text-align: left;
+    padding-top: 30px !important;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
 }
 
 .card-wrapper {
+    background-image: url(https://images.unsplash.com/photo-1603910234616-3b5f4a6be2b4?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mjl8fGNvbmNlcnR8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60);
+    background-size: contain;
+    background-attachment: fixed;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     width: 100%;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+
+
+@media screen and (min-width: 260px) and (max-width: 767px) {
+    .event-card {
+        flex-direction: column !important;
+        width: 80vw !important;
+
+    }
+
+    .card-body-image {
+        width: 100% !important;
+    }
+
+    .card-image {
+        width: 100% !important;
+        border-radius: 0 0 10px 10px !important;
+    }
+
+    .card-body-middle {
+        width: 100% !important;
+    }
+
+    .card-body-date {
+        width: 100% !important;
+        text-align: center !important;
+        border-radius: 10px 10px 0 0 !important;
+    }
 }

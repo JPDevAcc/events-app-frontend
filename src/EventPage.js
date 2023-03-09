@@ -3,6 +3,7 @@ import "./EventPage.css"
 import React from 'react'
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
+import { Link } from "react-router-dom";
 
 function EventPage(props) {
     console.log("Event Page: ", props.currentViewEvent)
@@ -10,7 +11,10 @@ function EventPage(props) {
         <>
             {props.currentViewEvent &&
                 <>
-                    <h1>Event page</h1>
+                    <h1>Event page
+                        <span className="link"><Link className="nav-link" to="/">Back to Dashboard</Link></span>
+                    </h1>
+
                     <div className='event-page-container'>
                         <Card className="event-page-card text-center">
                             <Card.Header className="left-header">
