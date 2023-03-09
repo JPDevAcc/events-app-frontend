@@ -1,25 +1,37 @@
 import './App.css';
 import { Route, Routes, Link } from "react-router-dom";
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import ApiClient from './apiClient';
 import Dashboard from './Dashboard';
 import Login from './Login';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import EventPage from './EventPage';
 import AddUpdateDel from "./components/AddUpdateDel";
+import Message from './components/Message';
+import Container from 'react-bootstrap/Container';
+import Nav from 'react-bootstrap/Nav';
+import Navbar from 'react-bootstrap/Navbar';
+import styles from './style.css';
 
 
 function App() {
 	const [token, setToken] = useState(window.localStorage.getItem("token")); // Restore token from localstorage
-	const client = new ApiClient(() => token, logout);
 	const [currentEvent, changeCurrentEvent] = useState(null) // Currently selected event for viewing/updating/deleting
+	const [msgData, setMsgData] = useState({ msg: null, type: null }) ;
+
+	// Error handling
+	function setError(msg) {
+		setMsgData({ type: "err", msg }) ;
+	}
 
 	// Events retrieval and refresh
-	const [events, changeEvents] = useState([]);
+	const client = new ApiClient(() => token, logout, setError) ;
+	const [events, changeEvents] = useState(null);
 	const refreshList = () => {
-		client.getEvents().then(response => changeEvents(response.data));
+		client.getEvents().then(response => {
+			changeEvents(response.data)
+		});
 	}
-	useEffect(refreshList, []);
 
 	// Login and logout
 	function login(token) {
@@ -34,11 +46,18 @@ function App() {
 	// Template
 	return (
 		<div className="App">
-			<header>
-				<Link className="nav-link" to="/">Dashboard</Link>
-				<Link className="nav-link" to="/addUpdate">Add/Update Event</Link>
-			</header>
-
+<Navbar bg="light" expand="lg">
+      <Container>
+        <Navbar.Brand href="#home">Welcome to our ultimate event page</Navbar.Brand>
+        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <Navbar.Collapse id="basic-navbar-nav">
+          <Nav className="me-auto">
+		  <Link className="nav-link" to="/">Dashboard</Link>
+		  <Link className="nav-link" to="/addUpdate">Add/Update Event</Link>
+          </Nav>
+        </Navbar.Collapse>
+      </Container>
+    </Navbar>
 			<Routes>
 				<Route path="/" element={
 					<>
@@ -47,6 +66,7 @@ function App() {
 								client={client}
 								events={events}
 								setCurrentViewEvent={changeCurrentEvent}
+								refreshList={refreshList}
 							/> :
 							<Login login={login} client={client} />}
 					</>
