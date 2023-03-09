@@ -10,15 +10,19 @@ import AddUpdateDel from "./components/AddUpdateDel";
 
 function App() {
 	const [token, setToken] = useState(window.localStorage.getItem("token")); // Restore token from localstorage
-	const client = new ApiClient(() => token, logout);
+	const [client, changeClient] = useState(null) ;
 	const [currentEvent, changeCurrentEvent] = useState(null) // Currently selected event for viewing/updating/deleting
 
 	// Events retrieval and refresh
 	const [events, changeEvents] = useState([]);
-	const refreshList = () => {
-		client.getEvents().then(response => changeEvents(response.data));
+	const refreshList = (currentClient = client) => {
+		currentClient.getEvents().then(response => changeEvents(response.data));
 	}
-	useEffect(refreshList, []);
+	useEffect(() => {
+		const newClient = new ApiClient(() => token, logout) ;
+		changeClient(newClient) ;
+		refreshList(newClient) ;
+}, []);
 
 	// Login and logout
 	function login(token) {
@@ -41,7 +45,7 @@ function App() {
 			<div className="p-3" style={{backgroundColor: "black"}}>
 				<div style={{backgroundColor: "inherit"}} className="text-white">Test panel</div>
 				<button className="btn me-5" onClick={() => changeCurrentEvent(null)}>Unset current event</button>
-				<button className="btn" onClick={() => changeCurrentEvent(events[3])}>Set current event to events[3]</button>
+				<button className="btn" onClick={() => changeCurrentEvent(events[0])}>Set current event to events[0]</button>
 			</div>
 
 			<Routes>
@@ -52,6 +56,7 @@ function App() {
 								client={client}
 								events={events}
 								setCurrentViewEvent={changeCurrentEvent}
+								refreshList={refreshList}
 							/> :
 							<Login login={login} client={client} />}
 					</>
