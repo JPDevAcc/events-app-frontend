@@ -8,6 +8,10 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import EventPage from './EventPage';
 import AddUpdateDel from "./components/AddUpdateDel";
 import Message from './components/Message';
+import Container from 'react-bootstrap/Container';
+import Nav from 'react-bootstrap/Nav';
+import Navbar from 'react-bootstrap/Navbar';
+import styles from './style.css';
 
 function App() {
 	const [token, setToken] = useState(window.localStorage.getItem("token")); // Restore token from localstorage
@@ -41,13 +45,18 @@ function App() {
 	// Template
 	return (
 		<div className="App">
-		<header>
-			<Link className="nav-link" to="/">Dashboard</Link>
-			<Link className="nav-link" to="/addUpdate">Add/Update Event</Link>
-		</header>
-
-			<Message msgData={msgData} setMsgData={setMsgData} />
-
+<Navbar bg="light" expand="lg">
+      <Container>
+        <Navbar.Brand href="#home">Welcome to our ultimate event page</Navbar.Brand>
+        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <Navbar.Collapse id="basic-navbar-nav">
+          <Nav className="me-auto">
+		  <Link className="nav-link" to="/">Dashboard</Link>
+		  <Link className="nav-link" to="/addUpdate">Add/Update Event</Link>
+          </Nav>
+        </Navbar.Collapse>
+      </Container>
+    </Navbar>
 			<Routes>
 				<Route path="/" element={
 					<>
