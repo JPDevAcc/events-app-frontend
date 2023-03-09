@@ -14,9 +14,11 @@ import Navbar from 'react-bootstrap/Navbar';
 import './style.css';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
-import { Navigate } from 'react-router-dom';
+import { useNavigate, Navigate } from 'react-router-dom';
 
 function App() {
+	const navigate = useNavigate();
+
 	const [token, setToken] = useState(window.localStorage.getItem("token")); // Restore token from localstorage
 	const [currentEvent, changeCurrentEvent] = useState(null) // Currently selected event for viewing/updating/deleting
 	const [msgData, setMsgData] = useState({ msg: null, type: null }) ;
@@ -45,6 +47,11 @@ function App() {
 		setToken(null);
 	}
 
+	function addEvent() {
+		changeCurrentEvent(null) ;
+		navigate('/addUpdate') ;
+	}
+
 	// Template
 	return (
 		<div className="App">
@@ -55,7 +62,7 @@ function App() {
 					<Navbar.Collapse id="basic-navbar-nav">
 						<Nav className="me-auto">
 							<Link className="nav-link" to="/">Dashboard</Link>
-							<Link className="nav-link" to="/addUpdate">Add/Update Event</Link>
+							<span className="nav-link" onClick={addEvent}>Add New Event</span>
 						</Nav>
 					</Navbar.Collapse>
 				</Container>
@@ -76,8 +83,7 @@ function App() {
 							<Login login={login} client={client} />}
 					</>
 				} />
-				
-				{(token) &&
+					{(token) &&
 				<Route path="/event" element={
 					<EventPage
 						client={client}
