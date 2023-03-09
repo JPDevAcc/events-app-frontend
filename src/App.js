@@ -1,28 +1,32 @@
 import './App.css';
 import { Route, Routes, Link } from "react-router-dom";
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import ApiClient from './apiClient';
 import Dashboard from './Dashboard';
 import Login from './Login';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import EventPage from './EventPage';
 import AddUpdateDel from "./components/AddUpdateDel";
+import Message from './components/Message';
 
 function App() {
 	const [token, setToken] = useState(window.localStorage.getItem("token")); // Restore token from localstorage
-	const [client, changeClient] = useState(null) ;
 	const [currentEvent, changeCurrentEvent] = useState(null) // Currently selected event for viewing/updating/deleting
+	const [msgData, setMsgData] = useState({ msg: null, type: null }) ;
+
+	// Error handling
+	function setError(msg) {
+		setMsgData({ type: "err", msg }) ;
+	}
 
 	// Events retrieval and refresh
-	const [events, changeEvents] = useState([]);
-	const refreshList = (currentClient = client) => {
-		currentClient.getEvents().then(response => changeEvents(response.data));
+	const client = new ApiClient(() => token, logout, setError) ;
+	const [events, changeEvents] = useState(null);
+	const refreshList = () => {
+		client.getEvents().then(response => {
+			changeEvents(response.data)
+		});
 	}
-	useEffect(() => {
-		const newClient = new ApiClient(() => token, logout) ;
-		changeClient(newClient) ;
-		refreshList(newClient) ;
-}, []);
 
 	// Login and logout
 	function login(token) {
@@ -42,11 +46,7 @@ function App() {
 			<Link className="nav-link" to="/addUpdate">Add/Update Event</Link>
 		</header>
 
-			<div className="p-3" style={{backgroundColor: "black"}}>
-				<div style={{backgroundColor: "inherit"}} className="text-white">Test panel</div>
-				<button className="btn me-5" onClick={() => changeCurrentEvent(null)}>Unset current event</button>
-				<button className="btn" onClick={() => changeCurrentEvent(events[0])}>Set current event to events[0]</button>
-			</div>
+			<Message msgData={msgData} setMsgData={setMsgData} />
 
 			<Routes>
 				<Route path="/" element={

@@ -2,10 +2,17 @@ import axios from "axios";
 const url = "http://localhost:3005";
 
 export default class ApiClient {
-	constructor(tokenProvider, logoutHandler) {
+	constructor(tokenProvider, logoutHandler, errHandler = null) {
 		this.tokenProvider = tokenProvider;
 		this.logoutHandler = logoutHandler;
+		this.errHandler = errHandler ;
 		this.setFilters() ;
+	}
+
+	errHandlerInternal(err) {
+		if (this.errHandler) this.errHandler(err.response.data.message) ;
+		else console.error(err) ;
+		throw(err) ; // (rethrow)
 	}
 
 	authenticatedCall(method, url, data) {
@@ -14,11 +21,16 @@ export default class ApiClient {
 			headers: {
 				token: this.tokenProvider()
 			}
-		}).catch((err) => {
-			if (err.response.statis === 401 || err.response.status === 403) {
+		})
+		.then((response) => {
+			this.errHandler(null) ;  // Clear error on success
+			return response ;
+		})
+		.catch((err) => {
+			if (err.response.statis === 401 || err.response.status === 403) { // Logout on Unauthorized / Forbidden
 				this.logoutHandler();
 			}
-			else throw err;
+			else this.errHandlerInternal(err) ; // Handle error
 		});
 	}
 
@@ -31,7 +43,6 @@ export default class ApiClient {
 	}
 
 	// TODO: CHECK THESE ROUTES WORK ON RENDER
-
 	getEvents() {
 		/* Search criteria format: f1=fieldName1&s1=searchValue1&f2=fieldName2&s2=searchValue2... */
 		let argsStr = '' ;
@@ -57,6 +68,7 @@ export default class ApiClient {
 	}
 
 	login(username, password) {
-		return axios.post(`${url}/auth`, { username, password });
+		return axios.post(`${url}/auth`, { username, password })
+			.then(this.errHandler(null)).catch((err) => this.errHandlerInternal(err)) ;
 	}
 }

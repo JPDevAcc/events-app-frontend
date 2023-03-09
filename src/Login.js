@@ -1,7 +1,8 @@
 import { useState } from "react";
 import React from 'react';
 import Logo from './logo.js'
-import styles from './style.css';
+import './style.css';
+
 export default function Login(props) {
   const [disabled, changeDisabled] = useState(false);
 
@@ -16,7 +17,6 @@ export default function Login(props) {
       })
       .catch((err) => {
         console.error(err);
-        alert("an error occursed, please try again");
         changeDisabled(false);
       });
   };
