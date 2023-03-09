@@ -29,3 +29,25 @@
     box-shadow: rgba(16, 16, 187, 0.25) 0px 30px 60px -12px inset, rgba(235, 231, 3, 0.884) 0px 18px 36px -18px inset;
 }
 
+.text-center {
+    font-weight: bold;
+}
+
+.text-muted {
+    font-style: oblique;
+    font-weight: bold;
+}
+
+.card-header {
+    background-color: rgb(147, 155, 167);
+    border-radius: 15px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(20, 8, 90, 0.3) 0px 18px 36px -18px inset;
+}
+
+.card-footer {
+    background-color: rgb(147, 155, 167);
+    border-radius: 15px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(20, 8, 90, 0.3) 0px 18px 36px -18px inset;
+}
+
+
