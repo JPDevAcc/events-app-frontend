@@ -14,6 +14,7 @@ import Navbar from 'react-bootstrap/Navbar';
 import './style.css';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
+import { Navigate } from 'react-router-dom';
 
 function App() {
 	const [token, setToken] = useState(window.localStorage.getItem("token")); // Restore token from localstorage
@@ -75,17 +76,21 @@ function App() {
 							<Login login={login} client={client} />}
 					</>
 				} />
-
+				
+				{(token) &&
 				<Route path="/event" element={
 					<EventPage
 						client={client}
 						currentViewEvent={currentEvent}
 					/>
-				} />
+				} />}
 
+				{(token) &&
 				<Route path="/addUpdate" element={
 					<AddUpdateDel client={client} refreshList={refreshList} currentEvent={currentEvent} />
-				} />
+				} />}
+
+				<Route path="*" element={<Navigate to="/" replace />} />
 
 			</Routes>
 			<Card className="text-center">
