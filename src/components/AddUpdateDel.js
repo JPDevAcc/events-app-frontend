@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
@@ -7,16 +8,42 @@ import Card from "react-bootstrap/Card";
 import '../css/AddUpdateDel.css';
 
 export default function Add({client, refreshList, currentEvent}) {
+	const navigate = useNavigate();
 
 	const [disabled, changeDisabled] = useState(false) ;
-	const [imageUrl, changeImageUrl] = useState('') ;
-	const [htmlDateTime, changeHtmlDateTime] = useState({}) ;
+	const [formData, changeFormData] = useState({
+		title: '',
+		date: '',
+		time: '',
+		duration: '',
+		durationUnits: '',
+		location: '',
+		imageUrl: '',
+		description: ''
+	}) ;
 
+	// Update form fields state when currentEvent changes
 	useEffect(() => {
-		changeImageUrl(currentEvent?.picture || '')
-		const {dateInputValue: currentEventDate, timeInputValue: currentEventTime} = dateTodateAndTimeInputValues(currentEvent?.date) ;
-		changeHtmlDateTime({currentEventDate, currentEventTime}) ;
+		resetForm() ;
 	}, [currentEvent]) ;
+
+	function resetForm() {
+		const {dateInputValue, timeInputValue} = dateTodateAndTimeInputValues(currentEvent?.date) ;
+		changeFormData({
+			title: currentEvent?.title || '',
+			date: dateInputValue,
+			time: timeInputValue,
+			duration: currentEvent?.duration || '',
+			durationUnits: currentEvent?.durationUnits || '',
+			location: currentEvent?.location || '',
+			imageUrl: currentEvent?.picture || '',
+			description: currentEvent?.description || ''
+		}) ;
+	}
+
+	function handleChange(e) {
+		changeFormData(formData => ({...formData, [e.target.name]: e.target.value})) ;
+	}
 
 	function dateTodateAndTimeInputValues(date) {
 		const dateInputValue = date?.split('T')[0] || '' ;
@@ -36,6 +63,7 @@ export default function Add({client, refreshList, currentEvent}) {
 			document.getElementById('eventDate').value,
 			document.getElementById('eventTime').value
 		)
+
 		const fieldsObj = {
 			title: document.getElementById('eventTitle').value,
 			date: dateObj,
@@ -55,7 +83,8 @@ export default function Add({client, refreshList, currentEvent}) {
 		// Do request
 		request.then(() => {
 			changeDisabled(false) ;
-			if (action === 'add') document.getElementById("addUpdateDelForm").reset() ;
+			if (action === 'add') resetForm() ;
+			if (action === 'delete') navigate("/"); // Back to viewing all events after deleting currently selected one
 			refreshList() ;
 		}).catch(err => {
 			console.error(err) ;
@@ -74,31 +103,31 @@ export default function Add({client, refreshList, currentEvent}) {
 		<>
 		 <Card className='addUpdateDelCard'>
 		  <Card.Title>Event Details</Card.Title>
-      <Card.Img variant="top" src={imageUrl} />
+      <Card.Img variant="top" src={formData.imageUrl} />
       <Card.Body>
 
 				<Form id="addUpdateDelForm">
 					<Form.Group className="mb-3" controlId="eventTitle">
 						<Form.Label>Title</Form.Label>
-						<Form.Control defaultValue={currentEvent?.title} placeholder="Title of your event" disabled={disabled} />
+						<Form.Control name="title" value={formData.title} onChange={handleChange} placeholder="Title of your event" disabled={disabled} />
 					</Form.Group>
 
 					<Row className="mb-3">
 						<Form.Group as={Col} controlId="eventDate">
 							<Form.Label>Date</Form.Label>
-							<Form.Control type="date" defaultValue={htmlDateTime.currentEventDate} disabled={disabled} />
+							<Form.Control name="date" type="date" value={formData.date} onChange={handleChange}  disabled={disabled} />
 						</Form.Group>
 
 						<Form.Group as={Col} controlId="eventTime">
 							<Form.Label>Time</Form.Label>
-							<Form.Control type="time" defaultValue={htmlDateTime.currentEventTime} placeholder="Time as HH:MM:SS (24-hour format)" disabled={disabled} />
+							<Form.Control name="time" type="time" value={formData.time} onChange={handleChange}  placeholder="Time as HH:MM:SS (24-hour format)" disabled={disabled} />
 						</Form.Group>
 
 						<Form.Group md as={Col}>
 							<label className="form-label" htmlFor="eventDuration">Duration</label>
 							<div className="d-flex gap-1">
-								<Form.Control id="eventDuration" defaultValue={currentEvent?.duration} placeholder="Length" disabled={disabled} />
-								<Form.Select id="eventDurationUnits" defaultValue={currentEvent?.durationUnits} aria-label="Length units" disabled={disabled} >
+								<Form.Control name="duration" id="eventDuration" value={formData.duration} onChange={handleChange}  placeholder="Length" disabled={disabled} />
+								<Form.Select name="durationUnits" id="eventDurationUnits" value={formData.durationUnits} onChange={handleChange} aria-label="Length units" disabled={disabled} >
 									<option value="m">Minutes</option>
 									<option value="h">Hours</option>
 									<option value="d">Days</option>
@@ -111,19 +140,18 @@ export default function Add({client, refreshList, currentEvent}) {
 					<Row className="mb-3">
 						<Form.Group as={Col} controlId="eventLocation">
 							<Form.Label>Location</Form.Label>
-							<Form.Control defaultValue={currentEvent?.location} placeholder="Location of your event" disabled={disabled} />
+							<Form.Control name="location" value={formData.location} onChange={handleChange} placeholder="Location of your event" disabled={disabled} />
 						</Form.Group>
 
 						<Form.Group md as={Col} controlId="eventImageURL">
 							<Form.Label>Image</Form.Label>
-							<Form.Control placeholder="Image URL" disabled={disabled}
-							value={imageUrl} onChange={(e) => changeImageUrl(e.target.value)} />
+							<Form.Control name="imageUrl" placeholder="Image URL" disabled={disabled} value={formData.imageUrl} onChange={handleChange} />
 						</Form.Group>
 					</Row>
 
 					<Form.Group as={Col} controlId="eventDescription">
 						<Form.Label>Description</Form.Label>
-						<Form.Control as="textarea" rows={3} defaultValue={currentEvent?.description} placeholder="A description for your event" disabled={disabled} />
+						<Form.Control name="description" as="textarea" rows={3} value={formData.description} onChange={handleChange} placeholder="A description for your event" disabled={disabled} />
 					</Form.Group>
 
 					<div className="mt-3">
