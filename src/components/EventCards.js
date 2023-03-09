@@ -1,13 +1,20 @@
 import React from 'react'
 import SingleEventCard from './SingleEventCard'
+import { convertDate, formatTime } from '../utils';
+
+
+
 
 function EventCards(props) {
-    console.log(props.events)
-
 
     const buildCards = () => {
         return props.events?.map(event => {
-            // console.log(props.events)
+
+            if (event.date) {
+                event.time = formatTime(event.date)
+            }
+
+
             return (
                 <SingleEventCard
                     key={event._id}

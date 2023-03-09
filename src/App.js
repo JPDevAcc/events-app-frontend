@@ -8,6 +8,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import EventPage from './EventPage';
 import AddUpdateDel from "./components/AddUpdateDel";
 
+
 function App() {
 	const [token, setToken] = useState(window.localStorage.getItem("token")); // Restore token from localstorage
 	const client = new ApiClient(() => token, logout);
@@ -33,16 +34,10 @@ function App() {
 	// Template
 	return (
 		<div className="App">
-		<header>
-			<Link className="nav-link" to="/">Dashboard</Link>
-			<Link className="nav-link" to="/addUpdate">Add/Update Event</Link>
-		</header>
-
-			<div className="p-3" style={{backgroundColor: "black"}}>
-				<div style={{backgroundColor: "inherit"}} className="text-white">Test panel</div>
-				<button className="btn me-5" onClick={() => changeCurrentEvent(null)}>Unset current event</button>
-				<button className="btn" onClick={() => changeCurrentEvent(events[3])}>Set current event to events[3]</button>
-			</div>
+			<header>
+				<Link className="nav-link" to="/">Dashboard</Link>
+				<Link className="nav-link" to="/addUpdate">Add/Update Event</Link>
+			</header>
 
 			<Routes>
 				<Route path="/" element={

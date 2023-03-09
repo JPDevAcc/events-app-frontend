@@ -4,9 +4,17 @@ import React from 'react'
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import { Link } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
+import { convertDate, convertDuration } from "./utils";
 
 function EventPage(props) {
-    console.log("Event Page: ", props.currentViewEvent)
+
+    const navigate = useNavigate();
+
+    function handleButtonClick() {
+        navigate("/addUpdate");
+    }
+
     return (
         <>
             {props.currentViewEvent &&
@@ -18,7 +26,7 @@ function EventPage(props) {
                     <div className='event-page-container'>
                         <Card className="event-page-card text-center">
                             <Card.Header className="left-header">
-                                {props.currentViewEvent.date}
+                                {convertDate(props.currentViewEvent.date)}<br />
                                 <img className='event-page-image' src={props.currentViewEvent.picture} />
                             </Card.Header>
                             <Card.Body className="event-page-card-body">
@@ -33,19 +41,19 @@ function EventPage(props) {
                                     <span className="event-location">
                                         {props.currentViewEvent.location}
                                     </span>
-                                    <span>
-                                        Opening time: 1800 <br />
-                                        Duration: 4 hours
+                                    <span className="time">
+                                        Opening time: {props.currentViewEvent.time} <br />
+                                        Duration: {props.currentViewEvent.duration} {convertDuration(props.currentViewEvent.duration, props.currentViewEvent.durationUnits)}
                                     </span>
 
 
                                     <span className="event-description">
                                         {props.currentViewEvent.description}
                                     </span>
-                                    <Button variant="primary" className="btn">Update</Button>
+                                    <Button onClick={handleButtonClick} variant="primary" className="btn">Update</Button>
                                 </Card.Text>
                             </Card.Body>
-                            {/* <Card.Footer className="text-muted">2 days ago</Card.Footer> */}
+
                         </Card>
 
                     </div>
