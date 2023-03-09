@@ -13,12 +13,12 @@
 }
 
 .addUpdateDelCard .card-img-top {
-	background: #ccc;
-	margin: auto;
-	width: 96px;
-	height: 96px;
-	border: 2px inset #888;
-	border-radius: 0;
+	background: #ccc ;
+	margin: auto ;
+	width: 96px !important ;
+	height: 96px ;
+	border: 2px inset #888 ;
+	border-radius: 0 !important ;
 }
 
 .addUpdateDelCard button:first-of-type {
@@ -31,10 +31,7 @@
 	height: 150px !important;
 	box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
 	border: none !important;
-
 }
-
-
 
 @media screen and (min-width: 260px) and (max-width: 767px) {
 	.addUpdateDelCard {

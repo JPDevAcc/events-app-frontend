@@ -1,27 +1,7 @@
 import "./css/Dashboard.css"
-import { useEffect, useState } from "react";
 import EventCards from "./components/EventCards";
-import AddUpdateDel from "./AddUpdateDel";
 
-export default function Dashboard(props) {
-	const [events, changeEvents] = useState([]);
-	const [currentForUpdate, changeCurrentForUpdate] = useState(undefined);
-
-	const refreshList = () => {
-		props.client.getEvents().then(response => {
-			changeEvents(response.data);
-		});
-	}
-
-	const handleUpdateEvent = (event) => {
-		changeCurrentForUpdate(event);
-	}
-
-	useEffect(() => {
-		refreshList();
-	}, []);
-
-
+export default function Dashboard({events, setCurrentViewEvent}) {
 	return (
 		<>
 			<h1 className="header-dash">Dashboard</h1>
@@ -29,13 +9,9 @@ export default function Dashboard(props) {
 
 				<EventCards
 					events={events}
-					setCurrentViewEvent={props.setCurrentViewEvent}
+					setCurrentViewEvent={setCurrentViewEvent}
 				/>
 			</div>
-			<AddUpdateDel client={props.client} currentEvent={events[2]} refreshList={() => {
-				refreshList();
-				changeCurrentForUpdate(undefined);
-			}} />
 		</>
 	)
 }
