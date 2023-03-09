@@ -19,9 +19,6 @@ function EventPage(props) {
         <>
             {props.currentViewEvent &&
                 <>
-                    <h1>Event page
-                        <span className="link"><Link className="nav-link" to="/">Back to Dashboard</Link></span>
-                    </h1>
 
                     <div className='event-page-container'>
                         <Card className="event-page-card text-center">
