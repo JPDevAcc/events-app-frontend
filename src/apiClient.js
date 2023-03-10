@@ -1,6 +1,6 @@
 import axios from "axios";
-const url = "http://localhost:3005";
-//const url = "https://jpdev-events-app-backend.onrender.com";
+//const url = "http://localhost:3005";
+const url = "https://jpdev-events-app-backend.onrender.com";
 
 export default class ApiClient {
 	constructor(tokenProvider, logoutHandler, errHandler = null) {
