@@ -4,3 +4,12 @@
 .nav-link {
 	cursor: pointer;
 }
+.my-message {
+	position: fixed !important;
+	bottom: 50vh ;
+	width:70%;
+	min-width: 320px;
+	z-index: 999;
+	margin:15%;
+	border:2px solid black !important;
+}

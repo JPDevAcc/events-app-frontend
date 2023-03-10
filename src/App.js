@@ -11,34 +11,9 @@ import Message from './components/Message';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
-import styles from './style.css';
-import Button from 'react-bootstrap/Button';
+import './style.css';
 import Card from 'react-bootstrap/Card';
 import { useNavigate, Navigate } from 'react-router-dom';
-
-function Footer() {
-  return (
-    <Card className="text-center">
-      <Card.Header>Featured</Card.Header>
-      <Card.Body>
-        <Card.Title>Special title treatment</Card.Title>
-        <Card.Text>
-          With supporting text below as a natural lead-in to additional content.
-        </Card.Text>
-      </Card.Body>
-      <Card.Footer className="text-muted">2 days ago</Card.Footer>
-    </Card>
-  );
-}
-
-
-
-
-
-
-
-
-
 
 function App() {
 	const navigate = useNavigate();
@@ -56,7 +31,7 @@ function App() {
 	const client = new ApiClient(() => token, logout, setError) ;
 	const [events, changeEvents] = useState(null);
 	const refreshList = () => {
-		client.getEvents().then(response => {
+		return client.getEvents().then(response => {
 			changeEvents(response.data)
 		});
 	}
@@ -69,6 +44,7 @@ function App() {
 	function logout() {
 		window.localStorage.removeItem("token");
 		setToken(null);
+		Navigate("/") ;
 	}
 
 	function addEvent() {
@@ -78,20 +54,23 @@ function App() {
 
 	// Template
 	return (
-		<div className="App">
-<Navbar bg="light" expand="lg">
-      <Container>
-        <Navbar.Brand>Welcome to our ultimate event page</Navbar.Brand>
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        <Navbar.Collapse id="basic-navbar-nav">
-          {token && <Nav className="me-auto">
-		  <Link className="nav-link" to="/">Dashboard</Link>
-		  <Link className="nav-link" to="/addUpdate">Add/Update Event</Link>
-          </Nav>}
-        </Navbar.Collapse>
-      </Container>
-    </Navbar>
-	
+		<div className="App">	
+			<Navbar bg="light" expand="lg">
+				<Container>
+					<Navbar.Brand>Welcome to our ultimate event page</Navbar.Brand>
+					<Navbar.Toggle aria-controls="basic-navbar-nav" />
+					<Navbar.Collapse id="basic-navbar-nav">
+						{token && <Nav className="me-auto">
+							<Link className="nav-link" to="/">Dashboard</Link>
+							<span className="nav-link" onClick={addEvent}>Add New Event</span>
+						</Nav>}
+						{token && <button onClick={logout}>Logout</button>}
+					</Navbar.Collapse>
+				</Container>
+			</Navbar>
+
+			<Message msgData={msgData} setMsgData={setMsgData} />
+
 			<Routes>
 				<Route path="/" element={
 					<>
@@ -115,7 +94,7 @@ function App() {
 
 				{(token) &&
 				<Route path="/addUpdate" element={
-					<AddUpdateDel client={client} refreshList={refreshList} currentEvent={currentEvent} />
+					<AddUpdateDel client={client} refreshList={refreshList} currentEvent={currentEvent} setMsgData={setMsgData} />
 				} />}
 
 				<Route path="*" element={<Navigate to="/" replace />} />

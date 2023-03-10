@@ -7,7 +7,7 @@ import Row from 'react-bootstrap/Row';
 import Card from "react-bootstrap/Card";
 import '../css/AddUpdateDel.css';
 
-export default function Add({ client, refreshList, currentEvent }) {
+export default function Add({ client, refreshList, currentEvent, setMsgData }) {
 	const navigate = useNavigate();
 
 	const [disabled, changeDisabled] = useState(false);
@@ -85,7 +85,13 @@ export default function Add({ client, refreshList, currentEvent }) {
 			changeDisabled(false);
 			if (action === 'add') resetForm();
 			if (action === 'delete') navigate("/"); // Back to viewing all events after deleting currently selected one
-			refreshList();
+			refreshList().then(() => {
+				if (action === 'add' || action === 'update') {
+					if (action === 'add') setMsgData({type: 'msg', msg: 'Event added'}) ;
+					else setMsgData({type: 'msg', msg: 'Event updated'}) ;
+					setTimeout(() => setMsgData({msg: null}), 2000) ;
+				}
+			});
 		}).catch(err => {
 			console.error(err);
 			changeDisabled(false);
