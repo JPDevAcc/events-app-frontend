@@ -6,4 +6,4 @@ Core requirements: User login page, ability to view/add/update/delete events
 
 Extensions: Event image and duration, detailed event view, search by event title or location
 
-Post-submission changes: Removed use of Dashboard.js useEffect() due to (possibly harmless) hook error
+Post-submission changes: Removed use of Dashboard.js useEffect() due to (possibly harmless) hook error, added basic form validation
