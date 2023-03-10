@@ -6,8 +6,8 @@
     width: 100%;
     min-height: 100vh;
     background-color: #f5f5f5;
-    background-size: contain;
-    background-image: url(https://images.unsplash.com/photo-1603910234616-3b5f4a6be2b4?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mjl8fGNvbmNlcnR8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60);
+    background-size: cover;
+    background-image: url(css/samuel-regan-asante-3BcNKoySAq0-unsplash-copy223.jpg);
     background-attachment: fixed;
 }
 
@@ -31,7 +31,7 @@
 
 .left-header {
     color: rgb(59, 56, 58);
-    font-weight: bolder;
+    font-weight: bold;
     font-size: larger;
     border: none !important;
     padding: 0 !important;

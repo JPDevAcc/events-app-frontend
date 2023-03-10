@@ -4,8 +4,8 @@ import styles from './style.css';
 function logo() {
   return (
     <>
-    <img src="logo/Logo00.png" alt="logo" />
-  </>
+      <img className='logo' src="logo/Logo00.png" alt="logo" />
+    </>
   )
 }
 

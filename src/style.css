@@ -9,11 +9,15 @@
     margin-top: 3px;
     padding: 20px;
     box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 .input-box {
     background-color: #a3acb8ff;
-    width: 20%;
+    width: max(20%, 200px);
     height: 40px;
     border: 2.5px solid #03256cff;
     border-radius: 15px;
@@ -22,7 +26,7 @@
 
 .submit-btn {
     background-color: #f59f00ff;
-    width: 7%;
+    width: max(20%, 200px);
     height: 40px;
     border: 2.5px solid #03256cff;
     border-radius: 15px;
@@ -50,4 +54,6 @@
     box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(20, 8, 90, 0.3) 0px 18px 36px -18px inset;
 }
 
-
+.logo {
+    width: min(70vw, 350px);
+}
