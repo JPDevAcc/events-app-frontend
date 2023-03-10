@@ -4,9 +4,7 @@ import Card from 'react-bootstrap/Card';
 import { useNavigate } from 'react-router-dom';
 import { formatMonth, convertDate } from "../utils";
 
-
 function SingleEventCard(props) {
-
     const event = props.event
 
     const navigate = useNavigate();

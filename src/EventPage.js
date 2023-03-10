@@ -1,14 +1,11 @@
 import "./EventPage.css"
-
 import React from 'react'
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
-import { Link } from "react-router-dom";
 import { useNavigate } from 'react-router-dom';
 import { convertDate, convertDuration } from "./utils";
 
 function EventPage(props) {
-
     const navigate = useNavigate();
 
     function handleButtonClick() {
@@ -24,7 +21,7 @@ function EventPage(props) {
                         <Card className="event-page-card text-center">
                             <Card.Header className="left-header">
                                 {convertDate(props.currentViewEvent.date)}<br />
-                                <img className='event-page-image' src={props.currentViewEvent.picture} />
+                                <img className='event-page-image' alt="" src={props.currentViewEvent.picture} />
                             </Card.Header>
                             <Card.Body className="event-page-card-body">
                                 <Card.Title className="card-title-page">Welcome to <span className="event-title">
@@ -32,7 +29,6 @@ function EventPage(props) {
                                     event page
                                 </Card.Title>
                                 <Card.Text className="card-text-wrapper">
-
 
                                     The event will take place at:
                                     <span className="event-location">

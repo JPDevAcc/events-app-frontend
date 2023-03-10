@@ -44,7 +44,6 @@ export default class ApiClient {
 		return { ...this.filters };
 	}
 
-	// TODO: CHECK THESE ROUTES WORK ON RENDER
 	getEvents() {
 		/* Search criteria format: f1=fieldName1&s1=searchValue1&f2=fieldName2&s2=searchValue2... */
 		let argsStr = '';

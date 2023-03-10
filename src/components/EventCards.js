@@ -1,19 +1,13 @@
 import React from 'react'
 import SingleEventCard from './SingleEventCard'
-import { convertDate, formatTime } from '../utils';
-
-
-
+import { formatTime } from '../utils';
 
 function EventCards(props) {
-
     const buildCards = () => {
         return props.events?.map(event => {
-
             if (event.date) {
-                event.time = formatTime(event.date)
+              event.time = formatTime(event.date)
             }
-
 
             return (
                 <SingleEventCard
@@ -24,7 +18,6 @@ function EventCards(props) {
             )
         })
     };
-
 
     return (
         <>
