@@ -11,12 +11,13 @@ export default function Add({ client, refreshList, currentEvent, setMsgData }) {
 	const navigate = useNavigate();
 
 	const [disabled, changeDisabled] = useState(false);
+	const [formValid, changeFormValid] = useState(false);
 	const [formData, changeFormData] = useState({
 		title: '',
 		date: '',
 		time: '',
 		duration: '',
-		durationUnits: '',
+		durationUnits: 'h',
 		location: '',
 		imageUrl: '',
 		description: ''
@@ -25,6 +26,7 @@ export default function Add({ client, refreshList, currentEvent, setMsgData }) {
 	// Update form fields state when currentEvent changes
 	useEffect(() => {
 		resetForm();
+		if (currentEvent) changeFormValid(true) ;
 	}, [currentEvent]);
 
 	function resetForm() {
@@ -34,7 +36,7 @@ export default function Add({ client, refreshList, currentEvent, setMsgData }) {
 			date: dateInputValue,
 			time: timeInputValue,
 			duration: currentEvent?.duration || '',
-			durationUnits: currentEvent?.durationUnits || '',
+			durationUnits: currentEvent?.durationUnits || 'h',
 			location: currentEvent?.location || '',
 			imageUrl: currentEvent?.picture || '',
 			description: currentEvent?.description || ''
@@ -42,6 +44,9 @@ export default function Add({ client, refreshList, currentEvent, setMsgData }) {
 	}
 
 	function handleChange(e) {
+		const newFormData = ({ ...formData, [e.target.name]: e.target.value }) ;
+		const allPresent = Object.values(newFormData).reduce((acc, cur) => acc && cur, true) ;
+		changeFormValid(allPresent) ;
 		changeFormData(formData => ({ ...formData, [e.target.name]: e.target.value }));
 	}
 
@@ -166,12 +171,12 @@ export default function Add({ client, refreshList, currentEvent, setMsgData }) {
 							</Form.Group>
 
 							<div className="mt-3">
-								<Button name="addupdate" onClick={submitHandler} variant="primary" type="submit">
+								<Button name="addupdate" onClick={submitHandler} disabled={disabled || !formValid} variant="primary" type="submit">
 									{currentEvent ? 'Update Event' : 'Add Event'}
 								</Button>
 
 								{currentEvent &&
-									<Button name="delete" onClick={submitHandler} variant="danger" type="submit">
+									<Button name="delete" onClick={submitHandler} disabled={disabled || !formValid} variant="danger" type="submit">
 										Delete Event
 									</Button>
 								}
