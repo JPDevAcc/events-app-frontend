@@ -5,6 +5,18 @@ import './style.css';
 
 export default function Login(props) {
   const [disabled, changeDisabled] = useState(false);
+	const [formValid, changeFormValid] = useState(false);
+		const [formData, changeFormData] = useState({
+		username: '',
+		password: '',
+	});
+
+	function handleChange(e) {
+		const newFormData = ({ ...formData, [e.target.name]: e.target.value }) ;
+		const allPresent = Object.values(newFormData).reduce((acc, cur) => acc && cur, true) ;
+		changeFormValid(allPresent) ;
+		changeFormData(formData => ({ ...formData, [e.target.name]: e.target.value }));
+	}
 
   const submitHandler = async (e) => {
     e.preventDefault();
@@ -22,25 +34,25 @@ export default function Login(props) {
   };
   return (
     <>
-      <div className="login-container">
+      <main className="login-container">
         <Logo />
         <br />
         <form onSubmit={(e) => submitHandler(e)}>
           Username
           <br />
-          <input type="text" name="username" className="input-box" disabled={disabled} />
+          <input name="username" value={formData.name} onChange={handleChange} className="input-box" disabled={disabled} />
           <br />
           Password
           <br />
-          <input type="password" name="password" className="input-box" disabled={disabled} />
+          <input type="password" value={formData.password} onChange={handleChange} name="password" className="input-box" disabled={disabled} />
           <br />
           <br />
-          <button type="submit" className="submit-btn" disabled={disabled}>
+          <button type="submit" className="submit-btn" disabled={disabled || !formValid}>
             {" "}
             Submit{" "}
           </button>
         </form>
-      </div>
+      </main>
     </>
   );
 }
