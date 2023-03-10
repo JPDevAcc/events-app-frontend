@@ -54,7 +54,7 @@ function App() {
 
 	// Template
 	return (
-		<div className="App">	
+		<div className="App">
 			<Navbar bg="light" expand="lg">
 				<Container>
 					<Navbar.Brand>Welcome to our ultimate event page</Navbar.Brand>
@@ -71,39 +71,44 @@ function App() {
 
 			<Message msgData={msgData} setMsgData={setMsgData} />
 
-			<Routes>
-				<Route path="/" element={
-					<>
-						{(token) ?
-							<Dashboard
-								client={client}
-								events={events}
-								setCurrentViewEvent={changeCurrentEvent}
-								refreshList={refreshList}
-							/> :
-							<Login login={login} client={client} />}
-					</>
-				} />
+			<main>
+				<Routes>
+					<Route path="/" element={
+						<>
+							{(token) ?
+								<Dashboard
+									client={client}
+									events={events}
+									setCurrentViewEvent={changeCurrentEvent}
+									refreshList={refreshList}
+								/> :
+								<Login login={login} client={client} />}
+						</>
+					} />
+						{(token) &&
+					<Route path="/event" element={
+						<EventPage
+							client={client}
+							currentViewEvent={currentEvent}
+						/>
+					} />}
+
 					{(token) &&
-				<Route path="/event" element={
-					<EventPage
-						client={client}
-						currentViewEvent={currentEvent}
-					/>
-				} />}
+					<Route path="/addUpdate" element={
+						<AddUpdateDel client={client} refreshList={refreshList} currentEvent={currentEvent} setMsgData={setMsgData} />
+					} />}
 
-				{(token) &&
-				<Route path="/addUpdate" element={
-					<AddUpdateDel client={client} refreshList={refreshList} currentEvent={currentEvent} setMsgData={setMsgData} />
-				} />}
+					<Route path="*" element={<Navigate to="/" replace />} />
 
-				<Route path="*" element={<Navigate to="/" replace />} />
+				</Routes>
+			</main>
 
-			</Routes>
-			<Card className="text-center">
-      <Card.Header>You have reached the bottom😆 </Card.Header>
-      <Card.Footer className="text-muted">Copyrights @TheBrutalEventListenersGang</Card.Footer>
-    </Card>
+			<footer>
+				<Card className="text-center">
+					<Card.Header>You have reached the bottom😆 </Card.Header>
+					<Card.Footer className="text-muted">Copyrights @TheBrutalEventListenersGang</Card.Footer>
+				</Card>
+			</footer>
 		</div>
 	);
 }
