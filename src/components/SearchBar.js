@@ -17,7 +17,7 @@ function SearchBar({ client, refreshList }) {
 
 	return (
 		<div className="my-search-bar">
-			<input name="title" value={searchFilters.title || ''} onChange={handleFilterChange} placeholder="Event Title" className="me-3" />
+			<input name="title" value={searchFilters.title || ''} onChange={handleFilterChange} placeholder="Event Title" />
 			<input name="location" value={searchFilters.location || ''} onChange={handleFilterChange} placeholder="Event Location" />
 		</div>
 	)

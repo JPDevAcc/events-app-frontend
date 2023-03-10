@@ -7,6 +7,7 @@ export default class ApiClient {
 		this.logoutHandler = logoutHandler;
 		this.errHandler = errHandler;
 		this.setFilters();
+		axios.defaults.withCredentials = true; // Send cookies
 	}
 
 	errHandlerInternal(err) {
